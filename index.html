@@ -41,23 +41,13 @@
         .addEventListener("click", function () {
           const popupContainer = document.getElementById("popupContainer");
           const popupDiv = document.querySelector(".popupDiv");
-          const POPUP_BTN_RIGHT = "20px";
-          const POPUP_BTN_BOTTOM = "70px";
-          const POPUP_BTN_WIDTH = "300px";
-          const POPUP_BTN_HEIGHT = "300px";
-          const POPUP_BTN_BACKGROUND_COLOR = "white";
-          const POPUP_BTN_BORDER = "2px solid black";
-          const POPUP_BTN_BORDER_RADIUS = "5px";
-          const POPUP_BTN_BOX_SHADOW = "0 4px 10px rgba(0, 0, 0, 0.2)";
-          const POPUP_BTN_PADDING = "10px";
-          const POPUP_BTN_ANIMATION_SECOND = 0.5;
 
           if (popupDiv) {
             // 如果已存在彈窗，淡出後移除
             popupDiv.style.opacity = "0";
             setTimeout(() => {
               popupDiv.remove();
-            }, POPUP_BTN_ANIMATION_SECOND * 1000); // 與 transition 時間相同
+            }, 500); // 與 transition 時間相同
           } else {
             // 創建新彈窗並淡入
             const newPopupDiv = document.createElement("div");
@@ -71,7 +61,7 @@
             `;
             newPopupDiv.setAttribute(
               "style",
-              `position: absolute; right: ${POPUP_BTN_RIGHT}; bottom: ${POPUP_BTN_BOTTOM}; width: ${POPUP_BTN_WIDTH}; height: ${POPUP_BTN_HEIGHT}; background-color: ${POPUP_BTN_BACKGROUND_COLOR}; border: ${POPUP_BTN_BORDER}; border-radius: ${POPUP_BTN_BORDER_RADIUS}; box-shadow: ${POPUP_BTN_BOX_SHADOW}; padding: ${POPUP_BTN_PADDING}; opacity: 0; transition: opacity ${POPUP_BTN_ANIMATION_SECOND}s ease;`
+              `position: absolute; right: 20px; bottom: 70px; width: 300px; height: 300px; background-color: white; border: 2px solid black; border-radius: 5px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); padding: 10px; opacity: 0; transition: opacity 0.5s ease;`
             );
             popupContainer.appendChild(newPopupDiv);
 
