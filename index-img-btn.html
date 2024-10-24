@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup btn demo with header and close button</title>
+  </head>
+  <body>
+    <div style="width: 100dvw; height: 100dvh; background-color: aquamarine">
+      <header style="padding: 12px">Here is header</header>
+      <hr />
+      <main style="padding: 12px">here is main</main>
+    </div>
+    <!-- Popup button and container wrapper -->
+    <div id="popupWrapper">
+      <!-- 圖片版本的 btn, 固定在右下角的按鈕 -->
+      <button
+        id="popupBtn"
+        style="
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+        "
+      >
+        <img
+          src="https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Popup Button"
+          style="width: 50px; height: 50px"
+        />
+      </button>
+
+      <!-- 這裡會新增 popup 視窗 -->
+      <div id="popupContainer" style="position: relative"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("popupBtn")
+        .addEventListener("click", function () {
+          const popupContainer = document.getElementById("popupContainer");
+          const popupDiv = document.querySelector(".popupDiv");
+          const POPUP_BTN_RIGHT = "20px";
+          const POPUP_BTN_BOTTOM = "70px";
+          const POPUP_BTN_WIDTH = "300px";
+          const POPUP_BTN_HEIGHT = "300px";
+          const POPUP_BTN_BACKGROUND_COLOR = "white";
+          const POPUP_BTN_BORDER = "2px solid black";
+          const POPUP_BTN_BORDER_RADIUS = "5px";
+          const POPUP_BTN_BOX_SHADOW = "0 4px 10px rgba(0, 0, 0, 0.2)";
+          const POPUP_BTN_PADDING = "10px";
+          const POPUP_BTN_ANIMATION_SECOND = 0.5;
+
+          if (popupDiv) {
+            // 如果已存在彈窗，淡出後移除
+            popupDiv.style.opacity = "0";
+            setTimeout(() => {
+              popupDiv.remove();
+            }, POPUP_BTN_ANIMATION_SECOND * 1000); // 與 transition 時間相同
+          } else {
+            // 創建新彈窗並淡入
+            const newPopupDiv = document.createElement("div");
+            newPopupDiv.classList.add("popupDiv");
+            newPopupDiv.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid black; padding-bottom: 10px;">
+                <h3>Popup Header</h3>
+                <button id="closeBtn" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">Close</button>
+              </div>
+              <div style="padding: 10px;">This is the popup content area with animation!</div>
+            `;
+            newPopupDiv.setAttribute(
+              "style",
+              `position: absolute; right: ${POPUP_BTN_RIGHT}; bottom: ${POPUP_BTN_BOTTOM}; width: ${POPUP_BTN_WIDTH}; height: ${POPUP_BTN_HEIGHT}; background-color: ${POPUP_BTN_BACKGROUND_COLOR}; border: ${POPUP_BTN_BORDER}; border-radius: ${POPUP_BTN_BORDER_RADIUS}; box-shadow: ${POPUP_BTN_BOX_SHADOW}; padding: ${POPUP_BTN_PADDING}; opacity: 0; transition: opacity ${POPUP_BTN_ANIMATION_SECOND}s ease;`
+            );
+            popupContainer.appendChild(newPopupDiv);
+
+            // 等待下一個事件循環後再觸發動畫
+            setTimeout(() => {
+              newPopupDiv.style.opacity = "1";
+            }, 10);
+
+            // 關閉彈窗按鈕功能
+            document
+              .getElementById("closeBtn")
+              .addEventListener("click", function () {
+                newPopupDiv.style.opacity = "0";
+                setTimeout(() => {
+                  newPopupDiv.remove();
+                }, 500);
+              });
+          }
+        });
+    </script>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    height: 0;
+  }
+</style>
