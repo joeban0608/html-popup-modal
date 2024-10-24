@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Popup btn demo with animation</title>
+    <title>Popup btn demo with header and close button</title>
   </head>
   <body>
     <div style="width: 100dvw; height: 100dvh; background-color: aquamarine">
@@ -52,7 +52,13 @@
             // 創建新彈窗並淡入
             const newPopupDiv = document.createElement("div");
             newPopupDiv.classList.add("popupDiv");
-            newPopupDiv.innerHTML = "This is a new popup window with animation!";
+            newPopupDiv.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid black; padding-bottom: 10px;">
+                <h3>Popup Header</h3>
+                <button id="closeBtn" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">Close</button>
+              </div>
+              <div style="padding: 10px;">This is the popup content area with animation!</div>
+            `;
             newPopupDiv.setAttribute(
               "style",
               "position: absolute; right: 20px; bottom: 70px; width: 300px; height: 200px; background-color: white; border: 2px solid black; padding: 10px; opacity: 0; transition: opacity 0.5s ease;"
@@ -63,6 +69,14 @@
             setTimeout(() => {
               newPopupDiv.style.opacity = "1";
             }, 10);
+
+            // 關閉彈窗按鈕功能
+            document.getElementById("closeBtn").addEventListener("click", function () {
+              newPopupDiv.style.opacity = "0";
+              setTimeout(() => {
+                newPopupDiv.remove();
+              }, 500);
+            });
           }
         });
     </script>
