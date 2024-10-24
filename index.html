@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Popup btn demo</title>
+    <title>Popup btn demo with animation</title>
   </head>
   <body>
     <div style="width: 100dvw; height: 100dvh; background-color: aquamarine">
@@ -11,6 +11,61 @@
       <hr />
       <main style="padding: 12px">here is main</main>
     </div>
+    <!-- Popup button and container wrapper -->
+    <div id="popupWrapper">
+      <!-- 固定在右下角的按鈕 -->
+      <button
+        id="popupBtn"
+        style="
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+      >
+        Toggle Modal
+      </button>
+
+      <!-- 這裡會新增 popup 視窗 -->
+      <div id="popupContainer" style="position: relative;"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("popupBtn")
+        .addEventListener("click", function () {
+          const popupContainer = document.getElementById("popupContainer");
+          const popupDiv = document.querySelector(".popupDiv");
+
+          if (popupDiv) {
+            // 如果已存在彈窗，淡出後移除
+            popupDiv.style.opacity = "0";
+            setTimeout(() => {
+              popupDiv.remove();
+            }, 500); // 與 transition 時間相同
+          } else {
+            // 創建新彈窗並淡入
+            const newPopupDiv = document.createElement("div");
+            newPopupDiv.classList.add("popupDiv");
+            newPopupDiv.innerHTML = "This is a new popup window with animation!";
+            newPopupDiv.setAttribute(
+              "style",
+              "position: absolute; right: 20px; bottom: 70px; width: 300px; height: 200px; background-color: white; border: 2px solid black; padding: 10px; opacity: 0; transition: opacity 0.5s ease;"
+            );
+            popupContainer.appendChild(newPopupDiv);
+
+            // 等待下一個事件循環後再觸發動畫
+            setTimeout(() => {
+              newPopupDiv.style.opacity = "1";
+            }, 10);
+          }
+        });
+    </script>
   </body>
 </html>
 
